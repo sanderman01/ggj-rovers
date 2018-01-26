@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMode : MonoBehaviour
@@ -11,6 +10,14 @@ public class GameMode : MonoBehaviour
     private void Update()
     {
         // For each player, get command input, if any, and put it into the command queue.
+        for(int i = 0; i < players.Count; i++)
+        {
+            PlayerCommand command = players[i].GetCommand();
+            if(command != null)
+            {
+                commandQueue.Add(command.SentTime, command);
+            }
+        }
 
         // If it's time to execute commands, then:
         // For each command in queue where (sentTime + currentDelay) < currentTime
