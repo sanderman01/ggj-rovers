@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Rover : MonoBehaviour
 {
-    public int PlayerId;
-    public int RoverId;
+    public int PlayerId { get; set; }
+    public int RoverId { get; set; }
 
     public bool IsExecutingCommand { get; private set; }
 
@@ -20,28 +20,62 @@ public class Rover : MonoBehaviour
         switch (command.Action)
         {
             case ActionType.Forward:
-                // Start coroutine or other process
+				StartCoroutine(MoveForward);
                 break;
             case ActionType.Reverse:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(MoveBackward);
+				break;
             case ActionType.RotateLeft:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(RotateLeft);
+				break;
             case ActionType.RotateRight:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(RotateRight);
+				break;
             case ActionType.Shoot:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(Shoot);
+				break;
             case ActionType.RotateTurretLeft:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(RotateLeftTurret);
+				break;
             case ActionType.RotateTurretRight:
-                // Start coroutine or other process
-                break;
+				StartCoroutine(RotateRightTurret);
+				break;
             default:
                 throw new System.NotImplementedException();
         }
     }
+	private IEnumerator MoveForward()
+	{
+		yield return null;
+	}
+
+	private IEnumerator MoveBackward()
+	{
+		yield return null;
+	}
+
+	private IEnumerator RotateLeft()
+	{
+		yield return null;
+	}
+
+	private IEnumerator RotateRight()
+	{
+		yield return null;
+	}
+
+	private IEnumerator Shoot()
+	{
+		yield return null;
+	}
+
+	private IEnumerator RotateLeftTurret()
+	{
+		yield return null;
+	}
+
+	private IEnumerator RotateRightTurret()
+	{
+		yield return null;
+	}
 }
