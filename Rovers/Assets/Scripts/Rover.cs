@@ -20,25 +20,25 @@ public class Rover : MonoBehaviour
         switch (command.Action)
         {
             case ActionType.Forward:
-				StartCoroutine(MoveForward);
+				StartCoroutine("MoveForward");
                 break;
             case ActionType.Reverse:
-				StartCoroutine(MoveBackward);
+				StartCoroutine("MoveBackward");
 				break;
             case ActionType.RotateLeft:
-				StartCoroutine(RotateLeft);
+				StartCoroutine("RotateLeft");
 				break;
             case ActionType.RotateRight:
-				StartCoroutine(RotateRight);
+				StartCoroutine("RotateRight");
 				break;
             case ActionType.Shoot:
-				StartCoroutine(Shoot);
+				StartCoroutine("Shoot");
 				break;
             case ActionType.RotateTurretLeft:
-				StartCoroutine(RotateLeftTurret);
+				StartCoroutine("RotateTurretLeft");
 				break;
             case ActionType.RotateTurretRight:
-				StartCoroutine(RotateRightTurret);
+				StartCoroutine("RotateTurretRight");
 				break;
             default:
                 throw new System.NotImplementedException();
@@ -69,12 +69,12 @@ public class Rover : MonoBehaviour
 		yield return null;
 	}
 
-	private IEnumerator RotateLeftTurret()
+	private IEnumerator RotateTurretLeft()
 	{
 		yield return null;
 	}
 
-	private IEnumerator RotateRightTurret()
+	private IEnumerator RotateTurretRight()
 	{
 		yield return null;
 	}
