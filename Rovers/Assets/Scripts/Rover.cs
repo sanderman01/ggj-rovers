@@ -8,12 +8,14 @@ public class Rover : MonoBehaviour
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
     public int TurnSpeed { get; set; }
-    public int defaultCommandDuration { get; set; }
+    public float defaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
 
     private bool rotating;
 
     private Rigidbody rigidBody;
+
+    private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
     public void Initialise(int playerId, int roverId)
     {
@@ -30,7 +32,22 @@ public class Rover : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    public void ExecuteCommand(PlayerCommand command)
+    private void Update()
+    {
+        if(!IsExecutingCommand && commandQueue.Count > 0)
+        {
+            PlayerCommand command = commandQueue.Dequeue();
+            ExecuteCommand(command);
+        }
+    }
+
+    public void EnqueueCommand(PlayerCommand command, float standardCommandDuration)
+    {
+        defaultCommandDuration = standardCommandDuration;
+        commandQueue.Enqueue(command);
+    }
+
+    private void ExecuteCommand(PlayerCommand command)
     {
         switch (command.Action)
         {
