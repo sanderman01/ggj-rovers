@@ -109,11 +109,4 @@ public class Rover : MonoBehaviour
     {
         yield return null;
     }
-
-    private Quaternion Rotate(Vector3 rotation)
-    {
-        Transform to = transform;
-        to.Rotate(rotation);
-        return Quaternion.Lerp(transform.rotation, to.rotation, defaultCommandDuration * TurnSpeed);
-    }
 }
