@@ -127,7 +127,6 @@ public class GameMode : MonoBehaviour
                 // dequeue and execute the commmand
                 queue.RemoveFirst();
                 Assert.IsNotNull(rovers[command.RoverId]);
-                Debug.LogFormat("Calling Execute: {0}", command.Action);
                 rovers[command.RoverId].EnqueueCommand(command, CommandDuration);
             }
         }

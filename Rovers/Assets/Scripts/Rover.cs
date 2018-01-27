@@ -11,7 +11,7 @@ public class Rover : MonoBehaviour
     public int MovementDistance { get; set; }
     public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
-
+    private LineRenderer laserLine;
     private Rigidbody rigidBody;
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
@@ -31,6 +31,7 @@ public class Rover : MonoBehaviour
 
     private void Awake()
     {
+        laserLine = GetComponent<LineRenderer>();
         MovementDistance = 5;
         DefaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
@@ -126,7 +127,27 @@ public class Rover : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        yield return null;
+        IsExecutingCommand = true;
+        laserLine.enabled = true;
+        var up = Vector3.up;
+        laserLine.SetPosition(0, up*100); 
+        //RaycastHit hit;
+
+        //Debug.DrawRay(transform.position, -up * 2, Color.green);
+
+        //if (Physics.Raycast(transform.position, -up, out hit, 2))
+        //{
+
+        //    Debug.Log("HIT");
+
+        //    //if (hit.collider.gameObject.name == "rover")
+        //    //{
+        //    //    Destroy(GetComponent("Rigidbody"));
+        //    //}
+        //}
+        yield return new WaitForSeconds(DefaultCommandDuration);
+        laserLine.enabled = false;
+        IsExecutingCommand = false;
     }
 
     private IEnumerator RotateTurretLeft()
