@@ -8,6 +8,8 @@ public class GameMode : MonoBehaviour
     private float CommandInterval = 1;
     [SerializeField]
     private float CommandDelay = 5;
+    [SerializeField]
+    private float CommandDuration = 1;
 
     [SerializeField]
     private Transform[] spawnPositions;
@@ -118,12 +120,24 @@ public class GameMode : MonoBehaviour
             PlayerCommand command = queue.First.Value;
 
             // if the command can be received now, and we are not already executing a command
-            if (command != null && Time.time > command.SentTime + CommandDelay && !rovers[command.RoverId].IsExecutingCommand)
+            if (command != null && Time.time > command.SentTime + CommandDelay)
             {
                 // dequeue and execute the commmand
                 queue.RemoveFirst();
                 Assert.IsNotNull(rovers[command.RoverId]);
-                rovers[command.RoverId].ExecuteCommand(command);
+                Debug.LogFormat("Calling Execute: {0}", command.Action);
+                rovers[command.RoverId].EnqueueCommand(command, CommandDuration);
+            }
+        }
+    }
+
+    private void OnGUI()
+    {
+        foreach(LinkedList<PlayerCommand> queue in playerCommandQueues)
+        {
+            foreach(PlayerCommand command in queue)
+            {
+                GUILayout.Box(string.Format(" {0} : {1}", command.SentTime, command.Action));
             }
         }
     }

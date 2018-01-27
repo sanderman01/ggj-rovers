@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Rover : MonoBehaviour
@@ -6,11 +7,13 @@ public class Rover : MonoBehaviour
     public int PlayerId { get; set; }
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
-    public int MovementDistance { get; set; }
-    public int defaultCommandDuration { get; set; }
+    public int TurnSpeed { get; set; }
+    public float defaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
 
     private Rigidbody rigidBody;
+
+    private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
     public void Initialise(int playerId, int roverId)
     {
@@ -20,20 +23,36 @@ public class Rover : MonoBehaviour
 
     private void Awake()
     {
-        MovementDistance = 5;
+        MoveSpeed = 3;
+        TurnSpeed = 2;
         defaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
     }
 
-    public void ExecuteCommand(PlayerCommand command)
+    private void Update()
+    {
+        if(!IsExecutingCommand && commandQueue.Count > 0)
+        {
+            PlayerCommand command = commandQueue.Dequeue();
+            ExecuteCommand(command);
+        }
+    }
+
+    public void EnqueueCommand(PlayerCommand command, float standardCommandDuration)
+    {
+        defaultCommandDuration = standardCommandDuration;
+        commandQueue.Enqueue(command);
+    }
+
+    private void ExecuteCommand(PlayerCommand command)
     {
         switch (command.Action)
         {
             case ActionType.Forward:
-                StartCoroutine(Move(transform.up));
+                StartCoroutine(MoveForward());
                 break;
             case ActionType.Reverse:
-                StartCoroutine(Move(-transform.up));
+                StartCoroutine(MoveBackward());
                 break;
             case ActionType.RotateLeft:
                 StartCoroutine(Rotate(90));
@@ -55,26 +74,22 @@ public class Rover : MonoBehaviour
         }
     }
 
-    private IEnumerator Move(Vector3 direction)
+    private IEnumerator MoveForward()
     {
-        IsExecutingCommand = true;
-        float beginTime = Time.time;
-        float endTime = beginTime + defaultCommandDuration;
-        float duration = endTime - beginTime;
+        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
+        Vector3 movement = transform.up * MoveSpeed * Time.deltaTime;
+        // Apply this movement to the rigidbody's position.
+        rigidBody.MovePosition(rigidBody.position + movement);
+        yield return null;
+    }
 
-        Vector3 beginLoc = transform.position;
-        Vector3 movement = direction * MovementDistance;
-        Vector3 endLoc = transform.position + movement;
-
-        while (Time.time < endTime)
-        {
-            float t = (Time.time - beginTime) / duration;
-            Vector3 currentLocation = beginLoc + (movement * t);
-            rigidBody.position = currentLocation;
-            yield return null;
-        }
-        rigidBody.position = endLoc;
-        IsExecutingCommand = false;
+    private IEnumerator MoveBackward()
+    {
+        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
+        Vector3 movement = -transform.up * MoveSpeed * Time.deltaTime;
+        // Apply this movement to the rigidbody's position.
+        rigidBody.MovePosition(rigidBody.position + movement);
+        yield return null;
     }
 
     private IEnumerator Rotate(float angle)
