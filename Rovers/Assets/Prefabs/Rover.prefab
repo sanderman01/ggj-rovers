@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 114305292835428982}
   - component: {fileID: 120382718620462490}
   - component: {fileID: 50349083821874244}
-  - component: {fileID: 61162592369257286}
+  - component: {fileID: 58892641540208392}
   m_Layer: 0
   m_Name: Rover
   m_TagString: Untagged
@@ -123,8 +123,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61162592369257286
-BoxCollider2D:
+--- !u!58 &58892641540208392
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -136,18 +136,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7, y: 7}
-  m_EdgeRadius: 0
+  m_Radius: 0.4
 --- !u!114 &114305292835428982
 MonoBehaviour:
   m_ObjectHideFlags: 1

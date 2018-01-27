@@ -9,6 +9,11 @@ public class RandomObstacles : MonoBehaviour
     private int objectCount;
 
     [SerializeField]
+    private bool randomRotate = true;
+    [SerializeField]
+    private bool randomSprite = true;
+
+    [SerializeField]
     private Decoration prefab;
 
     [SerializeField]
@@ -28,11 +33,20 @@ public class RandomObstacles : MonoBehaviour
             int y = Random.Range(yMin, yMax);
             Vector2 pos = new Vector2(x, y);
 
-            Decoration obj = Instantiate(prefab, transform);
-            obj.transform.position = new Vector2(x, y);
+            // Check if the position is occupied, if so, skip this one.
+            Collider2D collider = Physics2D.OverlapPoint(pos);
+            if (collider == null)
+            {
+                Decoration obj = Instantiate(prefab, transform);
+                obj.transform.position = new Vector2(x, y);
 
-            obj.SelectRandomRotation();
-            obj.SelectRandomSprite();
+                if (randomRotate) obj.SelectRandomRotation();
+                if (randomSprite) obj.SelectRandomSprite();
+            }
+            else
+            {
+                Debug.LogFormat("Occupied! {0}", collider.gameObject.name);
+            }
         }
     }
 

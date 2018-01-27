@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212959144266400194}
   - component: {fileID: 58333101517020284}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: Ufo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,15 +68,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3654f6f829b6a46897095b95d7e4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomRotate: 1
-  randomSprite: 1
+  randomRotate: 0
+  randomSprite: 0
   spriteRenderer: {fileID: 212959144266400194}
   sprites:
-  - {fileID: 21300000, guid: 78d949fd42583de4f83c8bfc30bc5953, type: 3}
-  - {fileID: 21300000, guid: 222860b441f7ec74ea31fd0a999606a6, type: 3}
-  - {fileID: 21300000, guid: 11e1f382b801c5c41b4df5954af0adaf, type: 3}
-  - {fileID: 21300000, guid: b580b5b9976b2584a9e14318e6c4a50d, type: 3}
-  - {fileID: 21300000, guid: d9c3ba0d977e1424a84f345bf31b9a2c, type: 3}
+  - {fileID: 21300000, guid: 52b05e9befbc62547b108a6bcfd1ba91, type: 3}
 --- !u!212 &212959144266400194
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -111,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 78d949fd42583de4f83c8bfc30bc5953, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52b05e9befbc62547b108a6bcfd1ba91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

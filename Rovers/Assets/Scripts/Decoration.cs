@@ -6,6 +6,11 @@ using UnityEngine;
 public class Decoration : MonoBehaviour
 {
     [SerializeField]
+    private bool randomRotate = true;
+    [SerializeField]
+    private bool randomSprite = true;
+
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
     [SerializeField]
     private Sprite[] sprites;
@@ -14,8 +19,8 @@ public class Decoration : MonoBehaviour
     {
         if(!Application.isPlaying)
         {
-            SelectRandomSprite();
-            SelectRandomRotation();
+            if(randomSprite) SelectRandomSprite();
+            if(randomRotate) SelectRandomRotation();
         }
     }
 
