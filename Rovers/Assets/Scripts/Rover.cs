@@ -8,7 +8,7 @@ public class Rover : MonoBehaviour
 	public int RoverId { get; set; }
 	public int MoveSpeed { get; set; }
     public int TurnSpeed { get; set; }
-
+    public int defaultCommandDuration { get; set; }
 	public bool IsExecutingCommand { get; private set; }
 
 	private Rigidbody rigidBody;
@@ -23,6 +23,7 @@ public class Rover : MonoBehaviour
 	{
         MoveSpeed = 3;
         TurnSpeed = 2;
+        defaultCommandDuration = 20;
         rigidBody = GetComponent<Rigidbody>();
 	}
 
@@ -96,12 +97,8 @@ public class Rover : MonoBehaviour
 
 	private IEnumerator RotateLeft()
 	{
-        // Determine the number of degrees to be turned based on the speed and time between frames.
-        float turn = TurnSpeed * Time.deltaTime;
-        Debug.Log("left"+turn);
-
-        // Make this into a rotation in the y axis.
-        Quaternion turnRotation = Quaternion.Euler(0f, 0f, turn);
+        Vector3 rotation = new Vector3(0, 0, 90);
+        Quaternion turnRotation = Rotate(rotation);
 
         // Apply this rotation to the rigidbody's rotation.
         rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
@@ -110,25 +107,12 @@ public class Rover : MonoBehaviour
 
 	private IEnumerator RotateRight()
 	{
-        int totalturning = 0;
-        for(int i=0; i<= 45;i++)
-        {
-            // Determine the number of degrees to be turned based on the speed and time between frames.
-            Debug.Log("turn: "+TurnSpeed+" total: "+totalturning);
-            int turn = TurnSpeed * 1;
-            if(totalturning + turn > 90)
-            {
-                turn = 90 - totalturning;
-            }
+        Vector3 rotation = new Vector3(0,0, -90);
+        Quaternion turnRotation = Rotate(rotation);
 
-            // Make this into a rotation in the y axis.
-            Quaternion turnRotation = Quaternion.Euler(0f, 0f, -turn);
-
-            // Apply this rotation to the rigidbody's rotation.
-            rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
-            totalturning += turn;
-            yield return null;
-        }
+        // Apply this rotation to the rigidbody's rotation.
+        rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
+        yield return null;
     }
 
 	private IEnumerator Shoot()
@@ -145,4 +129,11 @@ public class Rover : MonoBehaviour
 	{
 		yield return null;
 	}
+
+    private Quaternion Rotate(Vector3 rotation)
+    {
+        Transform to = transform;
+        to.Rotate(rotation);
+        return Quaternion.Lerp(transform.rotation, to.rotation, defaultCommandDuration * TurnSpeed);
+    }
 }
