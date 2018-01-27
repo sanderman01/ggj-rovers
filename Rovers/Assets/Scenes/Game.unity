@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: laserColor.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4598202767557740, guid: 137a383f885ea794786e65e7220a8099, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.37130105
@@ -177,6 +182,16 @@ Prefab:
       propertyPath: CommandDelay
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: laserColor.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: cefb4acf743efd04dbab2048d2b79cc2, type: 2}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: laserColor.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4a7646b05105ebb4287187b3bb054551, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 137a383f885ea794786e65e7220a8099, type: 2}
   m_IsPrefabParent: 0
