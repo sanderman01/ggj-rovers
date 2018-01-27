@@ -369,7 +369,7 @@ MonoBehaviour:
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
   playerSprites:
-  - {fileID: 21300000, guid: 6bf21b701c03ba642a801fbdb3fdf525, type: 3}
+  - {fileID: 21300000, guid: 1e65f1fea653aec47b85dc10eb4ca54e, type: 3}
   - {fileID: 21300000, guid: 36ca7af3b1540d54da2c607936ca3439, type: 3}
   playerCommandQueueUI:
   - {fileID: 645227673}
