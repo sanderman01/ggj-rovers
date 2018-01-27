@@ -57,6 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bca74f2e5e71fbe4ea6624010a70dc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeline: {fileID: 224179583407759000}
+  commandPrefab: {fileID: 114721524118338092, guid: a5763715a76045c4fb03104fb2462aa2,
+    type: 2}
 --- !u!114 &114199299148216182
 MonoBehaviour:
   m_ObjectHideFlags: 1
