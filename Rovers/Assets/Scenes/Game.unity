@@ -113,6 +113,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &326659336
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4567419138580798, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4770666925221108, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &441911693
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +353,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4411545446777112, guid: ce4957f642cdc4c4a8420b0747109219, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4411545446777112, guid: ce4957f642cdc4c4a8420b0747109219, type: 2}
       propertyPath: m_LocalRotation.x
@@ -371,6 +417,9 @@ MonoBehaviour:
   playerSprites:
   - {fileID: 21300000, guid: 1e65f1fea653aec47b85dc10eb4ca54e, type: 3}
   - {fileID: 21300000, guid: 36ca7af3b1540d54da2c607936ca3439, type: 3}
+  playerGunsSprites:
+  - {fileID: 21300000, guid: ff4218a01ff503c41b14f196345931d3, type: 3}
+  - {fileID: 21300000, guid: 48dfad11074d0c04eb06f18b220d05ce, type: 3}
   playerCommandQueueUI:
   - {fileID: 645227673}
   - {fileID: 1896421342}

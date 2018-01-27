@@ -13,19 +13,23 @@ public class Rover : MonoBehaviour
     public bool IsExecutingCommand { get; private set; }
     private LineRenderer laserLine;
     private Rigidbody rigidBody;
+    [SerializeField]
+    private SpriteRenderer vehicleRenderer;
+    [SerializeField]
+    private SpriteRenderer turretRenderer;
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
-    public void Initialise(int playerId, int roverId, Sprite sprite)
+    public void Initialise(int playerId, int roverId, Sprite vehicle, Sprite turret)
     {
         PlayerId = playerId;
         RoverId = roverId;
-        SetTexture(sprite);
+        SetTexture(vehicle, vehicleRenderer);
+        SetTexture(turret, turretRenderer);
     }
 
-    private void SetTexture(Sprite sprite)
+    private void SetTexture(Sprite sprite, SpriteRenderer renderer)
     {
-        SpriteRenderer renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         renderer.sprite = sprite;
     }
 
@@ -130,21 +134,22 @@ public class Rover : MonoBehaviour
         IsExecutingCommand = true;
         laserLine.enabled = true;
         var up = Vector3.up;
-        laserLine.SetPosition(0, up*100); 
-        //RaycastHit hit;
+        var length = up * 100;
+        laserLine.SetPosition(0, length); 
+        RaycastHit hit;
 
         //Debug.DrawRay(transform.position, -up * 2, Color.green);
 
-        //if (Physics.Raycast(transform.position, -up, out hit, 2))
-        //{
+        if (Physics.Raycast(transform.position, length, out hit, 2))
+        {
 
-        //    Debug.Log("HIT");
+            Debug.Log("HIT");
 
         //    //if (hit.collider.gameObject.name == "rover")
         //    //{
         //    //    Destroy(GetComponent("Rigidbody"));
         //    //}
-        //}
+        }
         yield return new WaitForSeconds(DefaultCommandDuration);
         laserLine.enabled = false;
         IsExecutingCommand = false;
