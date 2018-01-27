@@ -6,9 +6,11 @@ using UnityEngine.Assertions;
 public class TopDownCamera2D : MonoBehaviour
 {
     [SerializeField]
+    private float damping = 2.0f;
+    [SerializeField]
     private float minimumHeight = 50;
     [SerializeField]
-    private float damping = 2.0f;
+    private float boundsMargin = 5;
 
     [SerializeField]
     private Rect rect;
@@ -24,7 +26,7 @@ public class TopDownCamera2D : MonoBehaviour
         float yMin = float.MaxValue;
         float xMax = float.MinValue;
         float yMax = float.MinValue;
-        foreach(Transform tr in Targets)
+        foreach (Transform tr in Targets)
         {
             Assert.IsNotNull(tr);
 
@@ -36,21 +38,26 @@ public class TopDownCamera2D : MonoBehaviour
             yMax = Mathf.Max(yMax, p.y);
         }
 
-        rect = new Rect(xMin, yMin, xMax-xMin, yMax-yMin);
+        rect = new Rect(xMin - boundsMargin, yMin - boundsMargin, xMax - xMin + boundsMargin * 2, yMax - yMin + boundsMargin * 2);
         Vector2 center = rect.center;
-        rect.height = Mathf.Max(rect.height, minimumHeight);
-        rect.center = center;
+
+        //rect.height = Mathf.Max(rect.height, minimumHeight);
+        //rect.center = center;
+
+        const float screenRatio = 9f / 16f;
+        float height = Mathf.Max(rect.height, minimumHeight, rect.width * screenRatio);
+
+        Camera cam = GetComponent<Camera>();
+        cam.orthographicSize = height * 0.5f;
 
         Vector3 currentPos = transform.position;
         Vector3 targetPos = Vector2.Lerp(currentPos, center, Time.time * damping);
         targetPos.z = currentPos.z;
         transform.position = targetPos;
-
-        // TODO Zoom
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawCube(rect.center, new Vector3(rect.width, rect.height, 1));
+        Gizmos.DrawWireCube(rect.center, new Vector3(rect.width, rect.height, 1));
     }
 }
