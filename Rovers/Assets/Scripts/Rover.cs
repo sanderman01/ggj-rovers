@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,10 +16,17 @@ public class Rover : MonoBehaviour
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
-    public void Initialise(int playerId, int roverId)
+    public void Initialise(int playerId, int roverId, Sprite sprite)
     {
         PlayerId = playerId;
         RoverId = roverId;
+        SetTexture(sprite);
+    }
+
+    private void SetTexture(Sprite sprite)
+    {
+        SpriteRenderer renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        renderer.sprite = sprite;
     }
 
     private void Awake()
