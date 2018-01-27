@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum ActionType
 {
+    None,
     Forward,
     Reverse,
     RotateLeft,
