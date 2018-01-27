@@ -14,6 +14,7 @@ public class Rover : MonoBehaviour
     public Vector2 originO;
     private LineRenderer laserLine;
     private Rigidbody2D rigidBody;
+
     [SerializeField]
     private SpriteRenderer vehicleRenderer;
     [SerializeField]
@@ -143,23 +144,23 @@ public class Rover : MonoBehaviour
         var up = Vector2.up;
         var length = up * 100;
         laserLine.SetPosition(0, length); 
-        RaycastHit2D hit;
-        Vector2 origin = new Vector2(transform.position.x, transform.position.y+5);
+        RaycastHit2D[] hit;
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y+1);
         originO = origin;
         //Debug.DrawRay(transform.position, -up * 2, Color.green);
-        hit = Physics2D.Raycast(origin, Vector2.up);
-        //if (hit != null)
-        //{
-        //    if(hit.transform != null && hit.transform.name != null)
-        //    {
-        //        Debug.Log("HIT"+hit.transform.name.ToString());
-        //    } 
+        hit = Physics2D.RaycastAll(origin, Vector2.up);
+        if (hit != null)
+        {
+            //if (hit.transform != null && hit.transform.name != null)
+            //{
+            //    Debug.Log("HIT" + hit.transform.name.ToString());
+            //}
 
-        ////    //if (hit.collider.gameObject.name == "rover")
-        ////    //{
-        ////    //    Destroy(GetComponent("Rigidbody"));
-        ////    //}
-        //}
+            ////    //if (hit.collider.gameObject.name == "rover")
+            ////    //{
+            ////    //    Destroy(GetComponent("Rigidbody"));
+            ////    //}
+        }
         yield return new WaitForSeconds(DefaultCommandDuration);
         laserLine.enabled = false;
         IsExecutingCommand = false;
