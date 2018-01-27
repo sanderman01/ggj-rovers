@@ -53,6 +53,8 @@ public class GameMode : MonoBehaviour
         rovers = new List<Rover>(nPlayers);
         playerCommandQueues = new List<LinkedList<PlayerCommand>>(nPlayers);
 
+        List<Transform> cameraTargets = new List<Transform>();
+
         for (int i = 0; i < nPlayers; i++)
         {
             LinkedList<PlayerCommand> queue = new LinkedList<PlayerCommand>();
@@ -63,11 +65,14 @@ public class GameMode : MonoBehaviour
             rover.transform.position = spawnPositions[i].position;
             rovers.Add(rover);
 
+            cameraTargets.Add(rover.transform);
+
             Assert.IsNotNull(playerCommandQueueUI[i]);
             playerCommandQueueUI[i].TotalDelay = CommandDelay;
         }
 
-        
+        TopDownCamera2D cam = Camera.main.GetComponent<TopDownCamera2D>();
+        cam.Targets = cameraTargets;
 
         lastCommand = Time.time;
     }
@@ -147,17 +152,6 @@ public class GameMode : MonoBehaviour
                 UICommandQueue uiQueue = playerCommandQueueUI[command.PlayerId];
                 Assert.IsNotNull(uiQueue);
                 uiQueue.Remove(command);
-            }
-        }
-    }
-
-    private void OnGUI()
-    {
-        foreach(LinkedList<PlayerCommand> queue in playerCommandQueues)
-        {
-            foreach(PlayerCommand command in queue)
-            {
-                GUILayout.Box(string.Format(" {0} : {1}", command.SentTime, command.Action));
             }
         }
     }
