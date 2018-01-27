@@ -110,6 +110,7 @@ public class Rover : MonoBehaviour
 
     private IEnumerator RotateRight()
     {
+        IsExecutingCommand = true;
         float beginTime = Time.time;
         float endTime = beginTime + defaultCommandDuration;
         float duration = endTime - beginTime;
@@ -125,6 +126,7 @@ public class Rover : MonoBehaviour
         }
 
         transform.rotation = newRot;
+        IsExecutingCommand = false;
 
         //Quaternion turnRotation = Rotate(rotation);
 
