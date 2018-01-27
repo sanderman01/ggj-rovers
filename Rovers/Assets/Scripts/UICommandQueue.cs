@@ -5,6 +5,7 @@ using UnityEngine.Assertions;
 
 public class UICommandQueue : MonoBehaviour
 {
+
     [SerializeField]
     private RectTransform timeline;
 
@@ -12,7 +13,7 @@ public class UICommandQueue : MonoBehaviour
     private UICommand commandPrefab;
 
     [SerializeField]
-    private Sprite[] actionIcons;
+    private SpriteListAsset[] actionIcons;
 
     public float TotalDelay { get; set; }
 
@@ -44,7 +45,9 @@ public class UICommandQueue : MonoBehaviour
         tr.SetParent(timeline);
         commandObjects.Add(command, commandObj);
 
-        Sprite icon = actionIcons[(int)command.Action];
+        SpriteListAsset sprites = actionIcons[(int)command.PlayerId];
+        Assert.IsNotNull(sprites);
+        Sprite icon = sprites.Items[(int)command.Action];
         Assert.IsNotNull(icon);
         commandObj.SetIcon(icon);
 
