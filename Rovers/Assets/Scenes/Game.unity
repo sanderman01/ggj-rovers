@@ -186,6 +186,24 @@ Prefab:
       propertyPath: playerCommandQueueUI.Array.data[1]
       value: 
       objectReference: {fileID: 1896421342}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: playerGunsSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d741208349c42e428d71be81f7302f7,
+        type: 3}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: playerSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1bcc140ca20795b40b47387493f48b3e,
+        type: 3}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: playerGunsSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 48dfad11074d0c04eb06f18b220d05ce,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 137a383f885ea794786e65e7220a8099, type: 2}
   m_IsPrefabParent: 0
