@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class GameMode : MonoBehaviour
 {
@@ -56,6 +58,8 @@ public class GameMode : MonoBehaviour
         rovers = new List<Rover>(nPlayers);
         playerCommandQueues = new List<LinkedList<PlayerCommand>>(nPlayers);
 
+        List<Transform> cameraTargets = new List<Transform>();
+
         for (int i = 0; i < nPlayers; i++)
         {
             LinkedList<PlayerCommand> queue = new LinkedList<PlayerCommand>();
@@ -66,11 +70,14 @@ public class GameMode : MonoBehaviour
             rover.transform.position = spawnPositions[i].position;
             rovers.Add(rover);
 
+            cameraTargets.Add(rover.transform);
+
             Assert.IsNotNull(playerCommandQueueUI[i]);
             playerCommandQueueUI[i].TotalDelay = CommandDelay;
         }
 
-        
+        TopDownCamera2D cam = Camera.main.GetComponent<TopDownCamera2D>();
+        cam.Targets = cameraTargets;
 
         lastCommand = Time.time;
     }
@@ -87,6 +94,19 @@ public class GameMode : MonoBehaviour
 
     private void GetPlayerCommandsInput()
     {
+        if(GamepadInput.GamePad.GetButton(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any))
+        {
+            Reset();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+
         // For each player, get command input, if any, and put it into the command queue.
         for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
         {
@@ -113,6 +133,12 @@ public class GameMode : MonoBehaviour
                 uiQueue.Add(command);
             }
         }
+    }
+
+    private void Reset()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 
     private void ProcessCommands()
@@ -150,17 +176,6 @@ public class GameMode : MonoBehaviour
                 UICommandQueue uiQueue = playerCommandQueueUI[command.PlayerId];
                 Assert.IsNotNull(uiQueue);
                 uiQueue.Remove(command);
-            }
-        }
-    }
-
-    private void OnGUI()
-    {
-        foreach(LinkedList<PlayerCommand> queue in playerCommandQueues)
-        {
-            foreach(PlayerCommand command in queue)
-            {
-                GUILayout.Box(string.Format(" {0} : {1}", command.SentTime, command.Action));
             }
         }
     }

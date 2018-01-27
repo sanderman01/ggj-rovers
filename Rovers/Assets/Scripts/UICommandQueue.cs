@@ -47,6 +47,8 @@ public class UICommandQueue : MonoBehaviour
         Sprite icon = actionIcons[(int)command.Action];
         Assert.IsNotNull(icon);
         commandObj.SetIcon(icon);
+
+        Update();
     }
 
     public void Remove(PlayerCommand command)
