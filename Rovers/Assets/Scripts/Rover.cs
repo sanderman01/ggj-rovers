@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Rover : MonoBehaviour
@@ -10,8 +9,6 @@ public class Rover : MonoBehaviour
     public int TurnSpeed { get; set; }
     public float defaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
-
-    private bool rotating;
 
     private Rigidbody rigidBody;
 
@@ -27,7 +24,6 @@ public class Rover : MonoBehaviour
     {
         MoveSpeed = 3;
         TurnSpeed = 2;
-        rotating = false;
         defaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
     }
@@ -75,26 +71,6 @@ public class Rover : MonoBehaviour
             default:
                 throw new System.NotImplementedException();
         }
-    }
-
-    public void MoveForward2()
-    {
-        StartCoroutine(MoveForward());
-    }
-
-    public void MoveBackward2()
-    {
-        StartCoroutine(MoveBackward());
-    }
-
-    public void RotateLeft2()
-    {
-        StartCoroutine(Rotate(90));
-    }
-
-    public void RotateRight2()
-    {
-        StartCoroutine(Rotate(-90));
     }
 
     private IEnumerator MoveForward()
@@ -149,12 +125,5 @@ public class Rover : MonoBehaviour
     private IEnumerator RotateTurretRight()
     {
         yield return null;
-    }
-
-    private Quaternion Rotate(Vector3 rotation)
-    {
-        Transform to = transform;
-        to.Rotate(rotation);
-        return Quaternion.Lerp(transform.rotation, to.rotation, defaultCommandDuration * TurnSpeed);
     }
 }
