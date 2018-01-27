@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class Rover : MonoBehaviour
 {
-	public int PlayerId { get; set; }
-	public int RoverId { get; set; }
-	public int MoveSpeed { get; set; }
+    public int PlayerId { get; set; }
+    public int RoverId { get; set; }
+    public int MoveSpeed { get; set; }
     public int TurnSpeed { get; set; }
     public int defaultCommandDuration { get; set; }
-	public bool IsExecutingCommand { get; private set; }
+    public bool IsExecutingCommand { get; private set; }
 
-	private Rigidbody rigidBody;
+    private bool rotating;
+
+    private Rigidbody rigidBody;
 
     public void Initialise(int playerId, int roverId)
     {
@@ -19,39 +21,40 @@ public class Rover : MonoBehaviour
         RoverId = roverId;
     }
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         MoveSpeed = 3;
         TurnSpeed = 2;
-        defaultCommandDuration = 20;
+        rotating = false;
+        defaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
-	}
+    }
 
-	public void ExecuteCommand(PlayerCommand command)
+    public void ExecuteCommand(PlayerCommand command)
     {
         switch (command.Action)
         {
             case ActionType.Forward:
-				StartCoroutine(MoveForward());
+                StartCoroutine(MoveForward());
                 break;
             case ActionType.Reverse:
-				StartCoroutine(MoveBackward());
-				break;
+                StartCoroutine(MoveBackward());
+                break;
             case ActionType.RotateLeft:
-				StartCoroutine(RotateLeft());
-				break;
+                StartCoroutine(RotateLeft());
+                break;
             case ActionType.RotateRight:
-				StartCoroutine(RotateRight());
-				break;
+                StartCoroutine(RotateRight());
+                break;
             case ActionType.Shoot:
-				StartCoroutine(Shoot());
-				break;
+                StartCoroutine(Shoot());
+                break;
             case ActionType.RotateTurretLeft:
-				StartCoroutine(RotateTurretLeft());
-				break;
+                StartCoroutine(RotateTurretLeft());
+                break;
             case ActionType.RotateTurretRight:
-				StartCoroutine(RotateTurretRight());
-				break;
+                StartCoroutine(RotateTurretRight());
+                break;
             default:
                 throw new System.NotImplementedException();
         }
@@ -78,36 +81,26 @@ public class Rover : MonoBehaviour
     }
 
     private IEnumerator MoveForward()
-	{
+    {
         // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
         Vector3 movement = transform.up * MoveSpeed * Time.deltaTime;
         // Apply this movement to the rigidbody's position.
         rigidBody.MovePosition(rigidBody.position + movement);
         yield return null;
-	}
+    }
 
-	private IEnumerator MoveBackward()
-	{
+    private IEnumerator MoveBackward()
+    {
         // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
         Vector3 movement = -transform.up * MoveSpeed * Time.deltaTime;
         // Apply this movement to the rigidbody's position.
         rigidBody.MovePosition(rigidBody.position + movement);
         yield return null;
-	}
+    }
 
-	private IEnumerator RotateLeft()
-	{
+    private IEnumerator RotateLeft()
+    {
         Vector3 rotation = new Vector3(0, 0, 90);
-        Quaternion turnRotation = Rotate(rotation);
-
-        // Apply this rotation to the rigidbody's rotation.
-        rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
-        yield return null;
-	}
-
-	private IEnumerator RotateRight()
-	{
-        Vector3 rotation = new Vector3(0,0, -90);
         Quaternion turnRotation = Rotate(rotation);
 
         // Apply this rotation to the rigidbody's rotation.
@@ -115,20 +108,53 @@ public class Rover : MonoBehaviour
         yield return null;
     }
 
-	private IEnumerator Shoot()
-	{
-		yield return null;
-	}
+    private IEnumerator RotateRight()
+    {
+        float beginTime = Time.time;
+        float endTime = beginTime + defaultCommandDuration;
+        float duration = endTime - beginTime;
 
-	private IEnumerator RotateTurretLeft()
-	{
-		yield return null;
-	}
+        Quaternion beginRot = transform.rotation;
+        Quaternion newRot = Quaternion.Euler(new Vector3(0, 0, -90));
 
-	private IEnumerator RotateTurretRight()
-	{
-		yield return null;
-	}
+        while (Time.time < endTime)
+        {
+            float t = (Time.time - beginTime) / duration;
+            transform.rotation = Quaternion.Lerp(beginRot, newRot, t);
+            yield return null;
+        }
+
+        transform.rotation = newRot;
+
+        //Quaternion turnRotation = Rotate(rotation);
+
+        // Apply this rotation to the rigidbody's rotation.
+        //rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
+
+        //var fromAngle = transform.rotation;
+        //var toAngle = Quaternion.Euler(transform.eulerAngles + rotation);
+        //for (var t = 0f; t < 1; t += Time.deltaTime / defaultCommandDuration)
+        //{
+        //    transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
+        //    yield return null;
+        //}
+        
+    }
+
+    private IEnumerator Shoot()
+    {
+        yield return null;
+    }
+
+    private IEnumerator RotateTurretLeft()
+    {
+        yield return null;
+    }
+
+    private IEnumerator RotateTurretRight()
+    {
+        yield return null;
+    }
 
     private Quaternion Rotate(Vector3 rotation)
     {
