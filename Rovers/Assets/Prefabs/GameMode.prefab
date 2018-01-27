@@ -61,11 +61,11 @@ MonoBehaviour:
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
   playerSprites:
-  - {fileID: 21300000, guid: 1e65f1fea653aec47b85dc10eb4ca54e, type: 3}
-  - {fileID: 21300000, guid: 36ca7af3b1540d54da2c607936ca3439, type: 3}
+  - {fileID: 21300000, guid: 724c5d539c531e54fadc0195c30778b4, type: 3}
+  - {fileID: 21300000, guid: 1bcc140ca20795b40b47387493f48b3e, type: 3}
   playerGunsSprites:
   - {fileID: 21300000, guid: ff4218a01ff503c41b14f196345931d3, type: 3}
-  - {fileID: 21300000, guid: 48dfad11074d0c04eb06f18b220d05ce, type: 3}
+  - {fileID: 21300000, guid: 5d741208349c42e428d71be81f7302f7, type: 3}
   playerCommandQueueUI:
   - {fileID: 0}
   - {fileID: 0}
