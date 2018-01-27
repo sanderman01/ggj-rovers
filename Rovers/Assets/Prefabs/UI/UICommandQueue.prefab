@@ -60,6 +60,15 @@ MonoBehaviour:
   timeline: {fileID: 224179583407759000}
   commandPrefab: {fileID: 114721524118338092, guid: a5763715a76045c4fb03104fb2462aa2,
     type: 2}
+  actionIcons:
+  - {fileID: 0}
+  - {fileID: 21300000, guid: 6cf644c00103eab4595fdf979b2818ed, type: 3}
+  - {fileID: 21300000, guid: 0f399c1bb78043540bf2881e94461496, type: 3}
+  - {fileID: 21300000, guid: 288f854fbe931fc4ba5b5322220398ef, type: 3}
+  - {fileID: 21300000, guid: 98e507b622ef6c74882722c2aec8d616, type: 3}
+  - {fileID: 21300000, guid: 52c1936626c57224ab36e7b078b629c6, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &114199299148216182
 MonoBehaviour:
   m_ObjectHideFlags: 1
