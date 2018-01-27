@@ -41,10 +41,10 @@ public class Rover : MonoBehaviour
                 StartCoroutine(MoveBackward());
                 break;
             case ActionType.RotateLeft:
-                StartCoroutine(RotateLeft());
+                StartCoroutine(Rotate(90));
                 break;
             case ActionType.RotateRight:
-                StartCoroutine(RotateRight());
+                StartCoroutine(Rotate(-90));
                 break;
             case ActionType.Shoot:
                 StartCoroutine(Shoot());
@@ -72,12 +72,12 @@ public class Rover : MonoBehaviour
 
     public void RotateLeft2()
     {
-        StartCoroutine(RotateLeft());
+        StartCoroutine(Rotate(90));
     }
 
     public void RotateRight2()
     {
-        StartCoroutine(RotateRight());
+        StartCoroutine(Rotate(-90));
     }
 
     private IEnumerator MoveForward()
@@ -98,17 +98,7 @@ public class Rover : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator RotateLeft()
-    {
-        Vector3 rotation = new Vector3(0, 0, 90);
-        Quaternion turnRotation = Rotate(rotation);
-
-        // Apply this rotation to the rigidbody's rotation.
-        rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
-        yield return null;
-    }
-
-    private IEnumerator RotateRight()
+    private IEnumerator Rotate(float angle)
     {
         IsExecutingCommand = true;
         float beginTime = Time.time;
@@ -116,7 +106,7 @@ public class Rover : MonoBehaviour
         float duration = endTime - beginTime;
 
         Quaternion beginRot = transform.rotation;
-        Quaternion newRot = Quaternion.Euler(new Vector3(0, 0, -90));
+        Quaternion newRot = beginRot * Quaternion.Euler(new Vector3(0, 0, angle));
 
         while (Time.time < endTime)
         {
@@ -127,20 +117,6 @@ public class Rover : MonoBehaviour
 
         transform.rotation = newRot;
         IsExecutingCommand = false;
-
-        //Quaternion turnRotation = Rotate(rotation);
-
-        // Apply this rotation to the rigidbody's rotation.
-        //rigidBody.MoveRotation(rigidBody.rotation * turnRotation);
-
-        //var fromAngle = transform.rotation;
-        //var toAngle = Quaternion.Euler(transform.eulerAngles + rotation);
-        //for (var t = 0f; t < 1; t += Time.deltaTime / defaultCommandDuration)
-        //{
-        //    transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
-        //    yield return null;
-        //}
-        
     }
 
     private IEnumerator Shoot()
