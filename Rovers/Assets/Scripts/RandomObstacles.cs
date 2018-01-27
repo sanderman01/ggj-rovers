@@ -43,10 +43,6 @@ public class RandomObstacles : MonoBehaviour
                 if (randomRotate) obj.SelectRandomRotation();
                 if (randomSprite) obj.SelectRandomSprite();
             }
-            else
-            {
-                Debug.LogFormat("Occupied! {0}", collider.gameObject.name);
-            }
         }
     }
 

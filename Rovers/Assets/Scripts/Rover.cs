@@ -11,6 +11,7 @@ public class Rover : MonoBehaviour
     public int MovementDistance { get; set; }
     public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
+    public Vector2 originO;
     private LineRenderer laserLine;
     private Rigidbody2D rigidBody;
     [SerializeField]
@@ -88,7 +89,7 @@ public class Rover : MonoBehaviour
                 StartCoroutine(RotateTurretRight());
                 break;
             default:
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
         }
     }
 
@@ -139,23 +140,26 @@ public class Rover : MonoBehaviour
     {
         IsExecutingCommand = true;
         laserLine.enabled = true;
-        var up = Vector3.up;
+        var up = Vector2.up;
         var length = up * 100;
         laserLine.SetPosition(0, length); 
-        RaycastHit hit;
-
+        RaycastHit2D hit;
+        Vector2 origin = new Vector2(transform.position.x, transform.position.y+5);
+        originO = origin;
         //Debug.DrawRay(transform.position, -up * 2, Color.green);
+        hit = Physics2D.Raycast(origin, Vector2.up);
+        //if (hit != null)
+        //{
+        //    if(hit.transform != null && hit.transform.name != null)
+        //    {
+        //        Debug.Log("HIT"+hit.transform.name.ToString());
+        //    } 
 
-        if (Physics.Raycast(transform.position, length, out hit, 2))
-        {
-
-            Debug.Log("HIT");
-
-        //    //if (hit.collider.gameObject.name == "rover")
-        //    //{
-        //    //    Destroy(GetComponent("Rigidbody"));
-        //    //}
-        }
+        ////    //if (hit.collider.gameObject.name == "rover")
+        ////    //{
+        ////    //    Destroy(GetComponent("Rigidbody"));
+        ////    //}
+        //}
         yield return new WaitForSeconds(DefaultCommandDuration);
         laserLine.enabled = false;
         IsExecutingCommand = false;
@@ -169,5 +173,16 @@ public class Rover : MonoBehaviour
     private IEnumerator RotateTurretRight()
     {
         yield return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(originO != null)
+        {
+            Vector3 v = new Vector3(originO.x, originO.y, 0);
+            Ray ray = new Ray(v, v + Vector3.up);
+            Gizmos.DrawRay(ray);
+        }
+      
     }
 }
