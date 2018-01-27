@@ -43,7 +43,7 @@ public class Rover : MonoBehaviour
     private void Awake()
     {
         laserLine = GetComponent<LineRenderer>();
-        MovementDistance = 5;
+        MovementDistance = 1;
         DefaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody2D>();
     }

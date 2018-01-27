@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1843914748636760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.37130105, y: 0.013717152, z: -0.01175149}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CommandInterval: 1
-  CommandDelay: 5
+  CommandDelay: 3
   CommandDuration: 1
   spawnPositions:
   - {fileID: 0}
@@ -69,3 +69,6 @@ MonoBehaviour:
   playerCommandQueueUI:
   - {fileID: 0}
   - {fileID: 0}
+  laserColor:
+  - {fileID: 2100000, guid: 4a7646b05105ebb4287187b3bb054551, type: 2}
+  - {fileID: 2100000, guid: cefb4acf743efd04dbab2048d2b79cc2, type: 2}
