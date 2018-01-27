@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class GameMode : MonoBehaviour
 {
@@ -89,6 +91,19 @@ public class GameMode : MonoBehaviour
 
     private void GetPlayerCommandsInput()
     {
+        if(GamepadInput.GamePad.GetButton(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any))
+        {
+            Reset();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
+
         // For each player, get command input, if any, and put it into the command queue.
         for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
         {
@@ -115,6 +130,12 @@ public class GameMode : MonoBehaviour
                 uiQueue.Add(command);
             }
         }
+    }
+
+    private void Reset()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 
     private void ProcessCommands()

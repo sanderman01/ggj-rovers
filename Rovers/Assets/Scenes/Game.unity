@@ -172,6 +172,11 @@ Prefab:
       propertyPath: playerCommandQueueUI.Array.data[1]
       value: 
       objectReference: {fileID: 1896421342}
+    - target: {fileID: 114799302414258218, guid: 137a383f885ea794786e65e7220a8099,
+        type: 2}
+      propertyPath: CommandDelay
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 137a383f885ea794786e65e7220a8099, type: 2}
   m_IsPrefabParent: 0
