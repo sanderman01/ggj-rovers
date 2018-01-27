@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerCommand
+﻿public class PlayerCommand
 {
     public int PlayerId { get; private set; }
     public int RoverId { get; private set; }

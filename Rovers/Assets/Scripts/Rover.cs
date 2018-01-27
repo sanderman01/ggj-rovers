@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,25 +8,31 @@ public class Rover : MonoBehaviour
     public int PlayerId { get; set; }
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
-    public int TurnSpeed { get; set; }
-    public float defaultCommandDuration { get; set; }
+    public int MovementDistance { get; set; }
+    public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
 
     private Rigidbody rigidBody;
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
-    public void Initialise(int playerId, int roverId)
+    public void Initialise(int playerId, int roverId, Sprite sprite)
     {
         PlayerId = playerId;
         RoverId = roverId;
+        SetTexture(sprite);
+    }
+
+    private void SetTexture(Sprite sprite)
+    {
+        SpriteRenderer renderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        renderer.sprite = sprite;
     }
 
     private void Awake()
     {
-        MoveSpeed = 3;
-        TurnSpeed = 2;
-        defaultCommandDuration = 5;
+        MovementDistance = 5;
+        DefaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -40,7 +47,7 @@ public class Rover : MonoBehaviour
 
     public void EnqueueCommand(PlayerCommand command, float standardCommandDuration)
     {
-        defaultCommandDuration = standardCommandDuration;
+        DefaultCommandDuration = standardCommandDuration;
         commandQueue.Enqueue(command);
     }
 
@@ -49,10 +56,10 @@ public class Rover : MonoBehaviour
         switch (command.Action)
         {
             case ActionType.Forward:
-                StartCoroutine(MoveForward());
+                StartCoroutine(Move(transform.up));
                 break;
             case ActionType.Reverse:
-                StartCoroutine(MoveBackward());
+                StartCoroutine(Move(-transform.up));
                 break;
             case ActionType.RotateLeft:
                 StartCoroutine(Rotate(90));
@@ -74,29 +81,33 @@ public class Rover : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveForward()
+    private IEnumerator Move(Vector3 direction)
     {
-        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
-        Vector3 movement = transform.up * MoveSpeed * Time.deltaTime;
-        // Apply this movement to the rigidbody's position.
-        rigidBody.MovePosition(rigidBody.position + movement);
-        yield return null;
-    }
+        IsExecutingCommand = true;
+        float beginTime = Time.time;
+        float endTime = beginTime + DefaultCommandDuration;
+        float duration = endTime - beginTime;
 
-    private IEnumerator MoveBackward()
-    {
-        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
-        Vector3 movement = -transform.up * MoveSpeed * Time.deltaTime;
-        // Apply this movement to the rigidbody's position.
-        rigidBody.MovePosition(rigidBody.position + movement);
-        yield return null;
+        Vector3 beginLoc = transform.position;
+        Vector3 movement = direction * MovementDistance;
+        Vector3 endLoc = transform.position + movement;
+
+        while (Time.time < endTime)
+        {
+            float t = (Time.time - beginTime) / duration;
+            Vector3 currentLocation = beginLoc + (movement * t);
+            rigidBody.position = currentLocation;
+            yield return null;
+        }
+        rigidBody.position = endLoc;
+        IsExecutingCommand = false;
     }
 
     private IEnumerator Rotate(float angle)
     {
         IsExecutingCommand = true;
         float beginTime = Time.time;
-        float endTime = beginTime + defaultCommandDuration;
+        float endTime = beginTime + DefaultCommandDuration;
         float duration = endTime - beginTime;
 
         Quaternion beginRot = transform.rotation;

@@ -15,6 +15,8 @@ public class GameMode : MonoBehaviour
     private Transform[] spawnPositions;
     [SerializeField]
     private Rover[] roverPrefabs;
+    [SerializeField]
+    private Sprite[] playerSprites;
 
     private List<Player> players;
     private List<Rover> rovers;
@@ -52,7 +54,7 @@ public class GameMode : MonoBehaviour
             playerCommandQueues.Add(queue);
 
             Rover rover = Instantiate<Rover>(roverPrefabs[i]);
-            rover.Initialise(i, i);
+            rover.Initialise(i, i, playerSprites[i]);
             rover.transform.position = spawnPositions[i].position;
             rovers.Add(rover);
         }
