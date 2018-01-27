@@ -25,6 +25,9 @@ public class GameMode : MonoBehaviour
     [SerializeField]
     private UICommandQueue[] playerCommandQueueUI;
 
+    [SerializeField]
+    private Material[] laserColor;
+
     private List<Player> players;
     private List<Rover> rovers;
     private List<LinkedList<PlayerCommand>> playerCommandQueues;
@@ -63,7 +66,7 @@ public class GameMode : MonoBehaviour
             playerCommandQueues.Add(queue);
 
             Rover rover = Instantiate<Rover>(roverPrefabs[i]);
-            rover.Initialise(i, i, playerSprites[i], playerGunsSprites[i]);
+            rover.Initialise(i, i, playerSprites[i], playerGunsSprites[i], laserColor[i]);
             rover.transform.position = spawnPositions[i].position;
             rovers.Add(rover);
 

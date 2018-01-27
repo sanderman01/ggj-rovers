@@ -69,3 +69,6 @@ MonoBehaviour:
   playerCommandQueueUI:
   - {fileID: 0}
   - {fileID: 0}
+  laserColor:
+  - {fileID: 2100000, guid: 4a7646b05105ebb4287187b3bb054551, type: 2}
+  - {fileID: 2100000, guid: cefb4acf743efd04dbab2048d2b79cc2, type: 2}

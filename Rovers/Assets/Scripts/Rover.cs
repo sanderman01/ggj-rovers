@@ -12,7 +12,7 @@ public class Rover : MonoBehaviour
     public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
     private LineRenderer laserLine;
-    private Rigidbody rigidBody;
+    private Rigidbody2D rigidBody;
     [SerializeField]
     private SpriteRenderer vehicleRenderer;
     [SerializeField]
@@ -20,25 +20,31 @@ public class Rover : MonoBehaviour
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
-    public void Initialise(int playerId, int roverId, Sprite vehicle, Sprite turret)
+    public void Initialise(int playerId, int roverId, Sprite vehicle, Sprite turret, Material lasercolor)
     {
         PlayerId = playerId;
         RoverId = roverId;
         SetTexture(vehicle, vehicleRenderer);
         SetTexture(turret, turretRenderer);
+        SetLaserColor(lasercolor);
     }
 
     private void SetTexture(Sprite sprite, SpriteRenderer renderer)
     {
         renderer.sprite = sprite;
     }
+    private void SetLaserColor(Material color)
+    {
+        LineRenderer line = GetComponent<LineRenderer>();
+        line.material = color;
+    }
 
     private void Awake()
     {
         laserLine = GetComponent<LineRenderer>();
-        MovementDistance = 5;
+        MovementDistance = 1;
         DefaultCommandDuration = 5;
-        rigidBody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -86,25 +92,25 @@ public class Rover : MonoBehaviour
         }
     }
 
-    private IEnumerator Move(Vector3 direction)
+    private IEnumerator Move(Vector2 direction)
     {
         IsExecutingCommand = true;
         float beginTime = Time.time;
         float endTime = beginTime + DefaultCommandDuration;
         float duration = endTime - beginTime;
 
-        Vector3 beginLoc = transform.position;
-        Vector3 movement = direction * MovementDistance;
-        Vector3 endLoc = transform.position + movement;
+        Vector2 beginLoc = transform.position;
+        Vector2 movement = direction * MovementDistance;
+        Vector2 endLoc = beginLoc + movement;
 
         while (Time.time < endTime)
         {
             float t = (Time.time - beginTime) / duration;
-            Vector3 currentLocation = beginLoc + (movement * t);
-            rigidBody.position = currentLocation;
+            Vector2 currentLocation = beginLoc + (movement * t);
+            rigidBody.transform.position = currentLocation;
             yield return null;
         }
-        rigidBody.position = endLoc;
+        rigidBody.transform.position = endLoc;
         IsExecutingCommand = false;
     }
 
