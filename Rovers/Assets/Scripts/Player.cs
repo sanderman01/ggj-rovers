@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         if (leftStick.y > 0 + deadZone)
             newInput = ActionType.Forward;
         else if (leftStick.y < 0 - deadZone)
-            newInput = ActionType.Reverse;
+            newInput = ActionType.None; // This disables reverse for now.
         else if (leftStick.x > 0 + deadZone)
             newInput = ActionType.RotateRight;
         else if (leftStick.x < 0 - deadZone)
