@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224382996176298270}
   - component: {fileID: 222320677755266646}
+  - component: {fileID: 114721524118338092}
   m_Layer: 5
   m_Name: UICommand
   m_TagString: Untagged
@@ -88,6 +89,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114721524118338092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1686906891863708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4398cc12b6c624d48bf43b1227719105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 114300338472899758}
+  icon: {fileID: 114745295603175154}
 --- !u!114 &114745295603175154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,7 +183,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224645209621283228
 RectTransform:
@@ -187,5 +201,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}

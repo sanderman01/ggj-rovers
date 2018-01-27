@@ -18,6 +18,9 @@ public class GameMode : MonoBehaviour
     [SerializeField]
     private Sprite[] playerSprites;
 
+    [SerializeField]
+    private UICommandQueue[] playerCommandQueueUI;
+
     private List<Player> players;
     private List<Rover> rovers;
     private List<LinkedList<PlayerCommand>> playerCommandQueues;
@@ -57,7 +60,12 @@ public class GameMode : MonoBehaviour
             rover.Initialise(i, i, playerSprites[i]);
             rover.transform.position = spawnPositions[i].position;
             rovers.Add(rover);
+
+            Assert.IsNotNull(playerCommandQueueUI[i]);
+            playerCommandQueueUI[i].TotalDelay = CommandDelay;
         }
+
+        
 
         lastCommand = Time.time;
     }
@@ -92,7 +100,12 @@ public class GameMode : MonoBehaviour
                     sentTime = Mathf.Max(sentTime, prevCommand.SentTime + CommandInterval);
                 }
                 command.SentTime = sentTime;
+                command.Delay = CommandDelay;
                 queue.AddLast(command);
+
+                UICommandQueue uiQueue = playerCommandQueueUI[playerIndex];
+                Assert.IsNotNull(uiQueue);
+                uiQueue.Add(command);
             }
         }
     }
@@ -128,6 +141,10 @@ public class GameMode : MonoBehaviour
                 queue.RemoveFirst();
                 Assert.IsNotNull(rovers[command.RoverId]);
                 rovers[command.RoverId].EnqueueCommand(command, CommandDuration);
+
+                UICommandQueue uiQueue = playerCommandQueueUI[command.PlayerId];
+                Assert.IsNotNull(uiQueue);
+                uiQueue.Remove(command);
             }
         }
     }

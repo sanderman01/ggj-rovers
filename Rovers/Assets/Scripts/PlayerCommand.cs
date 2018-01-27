@@ -4,6 +4,7 @@
     public int RoverId { get; private set; }
     public ActionType Action { get; private set; }
     public float SentTime { get; set; }
+    public float Delay { get; set; }
 
     public PlayerCommand(int playerId, int roverId, ActionType type)
     {
