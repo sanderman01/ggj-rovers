@@ -8,7 +8,7 @@ public class Rover : MonoBehaviour
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
     public int MovementDistance { get; set; }
-    public float defaultCommandDuration { get; set; }
+    public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
 
     private Rigidbody rigidBody;
@@ -24,7 +24,7 @@ public class Rover : MonoBehaviour
     private void Awake()
     {
         MovementDistance = 5;
-        defaultCommandDuration = 5;
+        DefaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -39,7 +39,7 @@ public class Rover : MonoBehaviour
 
     public void EnqueueCommand(PlayerCommand command, float standardCommandDuration)
     {
-        defaultCommandDuration = standardCommandDuration;
+        DefaultCommandDuration = standardCommandDuration;
         commandQueue.Enqueue(command);
     }
 
@@ -77,7 +77,7 @@ public class Rover : MonoBehaviour
     {
         IsExecutingCommand = true;
         float beginTime = Time.time;
-        float endTime = beginTime + defaultCommandDuration;
+        float endTime = beginTime + DefaultCommandDuration;
         float duration = endTime - beginTime;
 
         Vector3 beginLoc = transform.position;
@@ -99,7 +99,7 @@ public class Rover : MonoBehaviour
     {
         IsExecutingCommand = true;
         float beginTime = Time.time;
-        float endTime = beginTime + defaultCommandDuration;
+        float endTime = beginTime + DefaultCommandDuration;
         float duration = endTime - beginTime;
 
         Quaternion beginRot = transform.rotation;
