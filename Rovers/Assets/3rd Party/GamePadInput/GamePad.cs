@@ -38,6 +38,25 @@ namespace GamepadInput
         /// returns a specified axis
         /// </summary>
         /// <param name="axis">One of the analogue sticks, or the dpad</param>
+        /// <param name="playerId">The controller number</param>
+        /// <param name="raw">if raw is false then the controlIndex will be returned with a deadspot</param>
+        /// <returns></returns>
+        public static Vector2 GetAxis(Axis axis, int playerId, bool raw = false)
+        {
+            playerId++;
+            if(playerId < 1 || playerId > 4)
+            {
+                throw new System.NotImplementedException();
+            }
+            Index index = (Index) playerId;
+
+            return GetAxis(axis, index, raw);          
+        }
+
+        /// <summary>
+        /// returns a specified axis
+        /// </summary>
+        /// <param name="axis">One of the analogue sticks, or the dpad</param>
         /// <param name="controlIndex">The controller number</param>
         /// <param name="raw">if raw is false then the controlIndex will be returned with a deadspot</param>
         /// <returns></returns>
