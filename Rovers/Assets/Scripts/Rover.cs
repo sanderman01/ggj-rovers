@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Rover : MonoBehaviour
@@ -7,7 +6,7 @@ public class Rover : MonoBehaviour
     public int PlayerId { get; set; }
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
-    public int TurnSpeed { get; set; }
+    public int MovementDistance { get; set; }
     public float defaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
 
@@ -23,8 +22,7 @@ public class Rover : MonoBehaviour
 
     private void Awake()
     {
-        MoveSpeed = 3;
-        TurnSpeed = 2;
+        MovementDistance = 5;
         defaultCommandDuration = 5;
         rigidBody = GetComponent<Rigidbody>();
     }
@@ -49,10 +47,10 @@ public class Rover : MonoBehaviour
         switch (command.Action)
         {
             case ActionType.Forward:
-                StartCoroutine(MoveForward());
+                StartCoroutine(Move(transform.up));
                 break;
             case ActionType.Reverse:
-                StartCoroutine(MoveBackward());
+                StartCoroutine(Move(-transform.up));
                 break;
             case ActionType.RotateLeft:
                 StartCoroutine(Rotate(90));
@@ -74,22 +72,26 @@ public class Rover : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveForward()
+    private IEnumerator Move(Vector3 direction)
     {
-        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
-        Vector3 movement = transform.up * MoveSpeed * Time.deltaTime;
-        // Apply this movement to the rigidbody's position.
-        rigidBody.MovePosition(rigidBody.position + movement);
-        yield return null;
-    }
+        IsExecutingCommand = true;
+        float beginTime = Time.time;
+        float endTime = beginTime + defaultCommandDuration;
+        float duration = endTime - beginTime;
 
-    private IEnumerator MoveBackward()
-    {
-        // Create a vector in the direction the tank is facing with a magnitude based on speed and the time between frames.
-        Vector3 movement = -transform.up * MoveSpeed * Time.deltaTime;
-        // Apply this movement to the rigidbody's position.
-        rigidBody.MovePosition(rigidBody.position + movement);
-        yield return null;
+        Vector3 beginLoc = transform.position;
+        Vector3 movement = direction * MovementDistance;
+        Vector3 endLoc = transform.position + movement;
+
+        while (Time.time < endTime)
+        {
+            float t = (Time.time - beginTime) / duration;
+            Vector3 currentLocation = beginLoc + (movement * t);
+            rigidBody.position = currentLocation;
+            yield return null;
+        }
+        rigidBody.position = endLoc;
+        IsExecutingCommand = false;
     }
 
     private IEnumerator Rotate(float angle)
