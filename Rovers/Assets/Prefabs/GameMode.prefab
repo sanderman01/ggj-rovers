@@ -64,11 +64,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 724c5d539c531e54fadc0195c30778b4, type: 3}
   - {fileID: 21300000, guid: 1bcc140ca20795b40b47387493f48b3e, type: 3}
   playerGunsSprites:
-  - {fileID: 21300000, guid: ff4218a01ff503c41b14f196345931d3, type: 3}
   - {fileID: 21300000, guid: 5d741208349c42e428d71be81f7302f7, type: 3}
+  - {fileID: 21300000, guid: 48dfad11074d0c04eb06f18b220d05ce, type: 3}
   playerCommandQueueUI:
   - {fileID: 0}
   - {fileID: 0}
   laserColor:
   - {fileID: 2100000, guid: 4a7646b05105ebb4287187b3bb054551, type: 2}
   - {fileID: 2100000, guid: cefb4acf743efd04dbab2048d2b79cc2, type: 2}
+  audioEventSendCommand: {fileID: 114025411749051566, guid: 4207db4fa5af2e644be4dddced99ecea,
+    type: 2}
+  audioEventReceiveCommand: {fileID: 114025411749051566, guid: 17cdd212e1d892141ba48072adea1961,
+    type: 2}

@@ -21,6 +21,9 @@ public class Rover : MonoBehaviour
     [SerializeField]
     private SpriteRenderer turretRenderer;
 
+    [SerializeField]
+    private AudioEvent audioEventShootLaser;
+
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
 
     public void Initialise(int playerId, int roverId, Sprite vehicle, Sprite turret, Material lasercolor)
@@ -149,6 +152,8 @@ public class Rover : MonoBehaviour
 
     private IEnumerator Shoot(float distance)
     {
+        AudioManager.PlayRandom(audioEventShootLaser);
+
         IsExecutingCommand = true;
 
         RaycastHit2D[] hits;

@@ -28,6 +28,11 @@ public class GameMode : MonoBehaviour
     [SerializeField]
     private Material[] laserColor;
 
+    [SerializeField]
+    private AudioEvent audioEventSendCommand;
+    [SerializeField]
+    private AudioEvent audioEventReceiveCommand;
+
     private List<Player> players;
     private List<Rover> rovers;
     private List<LinkedList<PlayerCommand>> playerCommandQueues;
@@ -131,6 +136,8 @@ public class GameMode : MonoBehaviour
                 UICommandQueue uiQueue = playerCommandQueueUI[playerIndex];
                 Assert.IsNotNull(uiQueue);
                 uiQueue.Add(command);
+
+                AudioManager.PlayAtIndex(audioEventSendCommand, (int)command.Action);
             }
         }
     }
