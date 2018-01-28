@@ -60,6 +60,7 @@ MonoBehaviour:
   roverPrefabs:
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
   - {fileID: 114305292835428982, guid: d66bf78e1ca33ca48ba2b033c256bc0b, type: 2}
+  winscreensPrefabs: []
   playerSprites:
   - {fileID: 21300000, guid: 724c5d539c531e54fadc0195c30778b4, type: 3}
   - {fileID: 21300000, guid: 1bcc140ca20795b40b47387493f48b3e, type: 3}
@@ -76,3 +77,4 @@ MonoBehaviour:
     type: 2}
   audioEventReceiveCommand: {fileID: 114025411749051566, guid: 17cdd212e1d892141ba48072adea1961,
     type: 2}
+  winner: {fileID: 0}

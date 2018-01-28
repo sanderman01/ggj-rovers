@@ -36,6 +36,8 @@ public class GameMode : MonoBehaviour
     private AudioEvent audioEventSendCommand;
     [SerializeField]
     private AudioEvent audioEventReceiveCommand;
+    [SerializeField]
+    private Winner winner;
 
     public static GameMode Instance { get; private set; }
 
@@ -112,7 +114,6 @@ public class GameMode : MonoBehaviour
     {
         if(WinnerId.HasValue)
         {
-            Winner winner = FindObjectOfType<Winner>();
             winner.playerId = WinnerId.Value;
             Image sc = winner.gameObject.GetComponent<Image>();
             if(sc == null)
@@ -120,8 +121,14 @@ public class GameMode : MonoBehaviour
                 sc = winner.gameObject.AddComponent(typeof(Image)) as Image;
             }
             sc.sprite = winner.sprites[WinnerId.Value];
-            Vector3 v = new Vector3(0, 250f, 0);
-            winner.gameObject.GetComponent<RectTransform>().SetPositionAndRotation(v, Quaternion.identity);
+            //Vector3 v = new Vector3(0, 250f, 0);
+            //winner.gameObject.GetComponent<RectTransform>().SetPositionAndRotation(v, Quaternion.identity);
+            winner.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
+        if(!WinnerId.HasValue)
+        {
+            Time.timeScale = 1;
         }
     }
 
@@ -138,8 +145,11 @@ public class GameMode : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
-            }
-
+        }
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
         // For each player, get command input, if any, and put it into the command queue.
         for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
         {
