@@ -9,6 +9,7 @@ public class Rover : MonoBehaviour
     public int RoverId { get; set; }
     public int MoveSpeed { get; set; }
     public int MovementDistance { get; set; }
+    public int ShootingDistance { get; set; }
     public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
     public Vector2 originO;
@@ -46,6 +47,7 @@ public class Rover : MonoBehaviour
         laserLine = GetComponent<LineRenderer>();
         MovementDistance = 1;
         DefaultCommandDuration = 5;
+        ShootingDistance = 10;
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
@@ -81,7 +83,7 @@ public class Rover : MonoBehaviour
                 StartCoroutine(Rotate(-90));
                 break;
             case ActionType.Shoot:
-                StartCoroutine(Shoot());
+                StartCoroutine(Shoot(ShootingDistance));
                 break;
             case ActionType.RotateTurretLeft:
                 StartCoroutine(RotateTurretLeft());
@@ -137,33 +139,59 @@ public class Rover : MonoBehaviour
         IsExecutingCommand = false;
     }
 
-    private IEnumerator Shoot()
+    private IEnumerator Shoot(float distance)
     {
         IsExecutingCommand = true;
-        laserLine.enabled = true;
-        var up = Vector2.up;
-        var length = up * 100;
-        laserLine.SetPosition(0, length); 
-        RaycastHit2D[] hit;
-        Vector2 origin = new Vector2(transform.position.x, transform.position.y+1);
-        originO = origin;
-        //Debug.DrawRay(transform.position, -up * 2, Color.green);
-        hit = Physics2D.RaycastAll(origin, Vector2.up);
-        if (hit != null)
-        {
-            //if (hit.transform != null && hit.transform.name != null)
-            //{
-            //    Debug.Log("HIT" + hit.transform.name.ToString());
-            //}
 
-            ////    //if (hit.collider.gameObject.name == "rover")
-            ////    //{
-            ////    //    Destroy(GetComponent("Rigidbody"));
-            ////    //}
+        RaycastHit2D[] hits;
+        Vector2 localOrigin = new Vector2(0, 1);
+        Vector2 worldOrigin = transform.TransformPoint(localOrigin);
+        Vector2 worldDirection = transform.TransformDirection(localOrigin);
+
+        Vector3 laserEnd = worldOrigin + worldDirection * distance;
+
+        //Vector2 origin = new Vector2(transform.position.x, transform.position.y+1);
+        originO = worldOrigin;
+        //Debug.DrawRay(transform.position, -up * 2, Color.green);
+        hits = Physics2D.RaycastAll(worldOrigin, worldDirection, distance);
+        if (hits != null && hits.Length > 0)
+        {
+            RaycastHit2D hit = FindClosestHit(hits, transform.position);
+            laserEnd = hit.transform.position;
+
+            Rover rover = hit.transform.GetComponent<Rover>();
+            if(rover != null)
+            {
+                Debug.LogWarning("We hit a rover!");
+                // TODO
+            }
         }
+
+        laserLine.enabled = true;
+        laserLine.SetPosition(0, worldOrigin);
+        laserLine.SetPosition(1, laserEnd);
+
         yield return new WaitForSeconds(DefaultCommandDuration);
         laserLine.enabled = false;
         IsExecutingCommand = false;
+    }
+
+    private RaycastHit2D FindClosestHit(RaycastHit2D[] hits, Vector2 origin)
+    {
+        float minDistance = float.MaxValue;
+        RaycastHit2D result = new RaycastHit2D();
+
+        for(int i = 0; i < hits.Length; i++)
+        {
+            RaycastHit2D hit = hits[i];
+            float distance = Vector2.Distance(origin, hit.transform.position);
+            if (minDistance > distance)
+            {
+                minDistance = distance;
+                result = hit;
+            }
+        }
+        return result;
     }
 
     private IEnumerator RotateTurretLeft()
@@ -178,10 +206,10 @@ public class Rover : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(originO != null)
+        if(originO != Vector2.zero)
         {
-            Vector3 v = new Vector3(originO.x, originO.y, 0);
-            Ray ray = new Ray(v, v + Vector3.up);
+            Vector2 direction = transform.TransformDirection(new Vector2(0, 1));
+            Ray ray = new Ray(originO, (Vector3)direction);
             Gizmos.DrawRay(ray);
         }
       
