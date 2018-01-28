@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -132,12 +133,20 @@ public class GameMode : MonoBehaviour
             //Vector3 v = new Vector3(0, 250f, 0);
             //winner.gameObject.GetComponent<RectTransform>().SetPositionAndRotation(v, Quaternion.identity);
             winner.gameObject.SetActive(true);
-            Time.timeScale = 0;
+
+            // Set timescale to 0 to pauze the game, after a set delay.
+            StartCoroutine(Delay(1f, () => Time.timeScale = 0));
         }
         if(!WinnerId.HasValue)
         {
             Time.timeScale = 1;
         }
+    }
+
+    private IEnumerator Delay(float delay, Action action)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        action.Invoke();
     }
 
     private void GetPlayerCommandsInput()
