@@ -54,18 +54,18 @@ MonoBehaviour:
   warnOnNullClip: 0
   audioClips:
   - audioClip: {fileID: 0}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 8300000, guid: ba274efe136e7ad4a8810a7a69ab4a95, type: 3}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 8300000, guid: 1d49bc52fd0822b4cb213f46d3509ee2, type: 3}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 8300000, guid: b7b98dd9ca525674db8f0e3427482998, type: 3}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 8300000, guid: 2f58a0bcefea3014fbe64882c660142d, type: 3}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 8300000, guid: b7b98dd9ca525674db8f0e3427482998, type: 3}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 0}
-    volume: 1
+    volume: 0.25
   - audioClip: {fileID: 0}
-    volume: 1
+    volume: 0.25
