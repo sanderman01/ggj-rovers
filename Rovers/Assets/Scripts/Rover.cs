@@ -98,14 +98,22 @@ public class Rover : MonoBehaviour
 
     private IEnumerator Move(Vector2 direction)
     {
-        IsExecutingCommand = true;
-        float beginTime = Time.time;
-        float endTime = beginTime + DefaultCommandDuration;
-        float duration = endTime - beginTime;
-
         Vector2 beginLoc = transform.position;
         Vector2 movement = direction * MovementDistance;
         Vector2 endLoc = beginLoc + movement;
+
+        // check if the next space is occupied
+        if(Physics2D.OverlapCircle(endLoc, 0.4f))
+        {
+            Debug.LogWarning("Movement Blocked!");
+            yield break;
+        }
+
+        IsExecutingCommand = true;
+
+        float beginTime = Time.time;
+        float endTime = beginTime + DefaultCommandDuration;
+        float duration = endTime - beginTime;
 
         while (Time.time < endTime)
         {
