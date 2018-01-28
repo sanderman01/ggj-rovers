@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114033784916350922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 397f0ef5ae82f214ebe21b317330981b, type: 3}
-  - {fileID: 21300000, guid: 05b471aa06771e34bbd10e7bf347dee1, type: 3}
+  - {fileID: 21300000, guid: c297ed52ef07d704d857bd61873a8ee2, type: 3}
+  - {fileID: 21300000, guid: 4d55896711ced8a4b972c39e775a7084, type: 3}
 --- !u!114 &114090660813109990
 MonoBehaviour:
   m_ObjectHideFlags: 1
