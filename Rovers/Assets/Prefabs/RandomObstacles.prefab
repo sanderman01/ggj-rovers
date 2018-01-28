@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfb6d3ac7a13694e9ee96491f0bc47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectCount: 50
+  objectCount: 40
+  randomRotate: 1
+  randomSprite: 1
   prefab: {fileID: 114729549866630574, guid: e1447bcaf2a5d9e46acffaee35a55300, type: 2}
   area:
     serializedVersion: 2
