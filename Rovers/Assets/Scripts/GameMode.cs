@@ -147,17 +147,19 @@ public class GameMode : MonoBehaviour
             Reset();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (GamepadInput.GamePad.GetButton(GamepadInput.GamePad.Button.Back, GamepadInput.GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
+
         if (Time.timeScale == 0)
         {
             return;
         }
+
         // For each player, get command input, if any, and put it into the command queue.
         for (int playerIndex = 0; playerIndex < players.Count; playerIndex++)
         {
