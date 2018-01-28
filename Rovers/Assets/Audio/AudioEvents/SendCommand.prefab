@@ -55,15 +55,15 @@ MonoBehaviour:
   audioClips:
   - audioClip: {fileID: 0}
     volume: 0.25
-  - audioClip: {fileID: 8300000, guid: ba274efe136e7ad4a8810a7a69ab4a95, type: 3}
+  - audioClip: {fileID: 8300000, guid: 4ed75a4a8efb04043848bfb48c87f253, type: 3}
     volume: 0.25
-  - audioClip: {fileID: 8300000, guid: 1d49bc52fd0822b4cb213f46d3509ee2, type: 3}
+  - audioClip: {fileID: 8300000, guid: 950563dde3178bd43b8d1ce2734801b3, type: 3}
     volume: 0.25
-  - audioClip: {fileID: 8300000, guid: b7b98dd9ca525674db8f0e3427482998, type: 3}
+  - audioClip: {fileID: 8300000, guid: d6a4e543e8f876d47b9e4a0d70ccf428, type: 3}
     volume: 0.25
-  - audioClip: {fileID: 8300000, guid: 2f58a0bcefea3014fbe64882c660142d, type: 3}
+  - audioClip: {fileID: 8300000, guid: e8a895a04cc61ef43994de180ae28ace, type: 3}
     volume: 0.25
-  - audioClip: {fileID: 8300000, guid: b7b98dd9ca525674db8f0e3427482998, type: 3}
+  - audioClip: {fileID: 8300000, guid: 827d9216637bd034ca374b523592ccc5, type: 3}
     volume: 0.25
   - audioClip: {fileID: 0}
     volume: 0.25
