@@ -20,6 +20,10 @@ public class Rover : MonoBehaviour
     [SerializeField]
     private SpriteRenderer turretRenderer;
 
+    [SerializeField]
+    private GameObject laserHitParticlesPrefab;
+    [SerializeField]
+    private GameObject roverHitParticlesPrefab;
 
     [SerializeField]
     private AudioEvent audioEventReceiveCommand;
@@ -173,10 +177,13 @@ public class Rover : MonoBehaviour
             RaycastHit2D hit = FindClosestHit(hits, transform.position);
             laserEnd = hit.transform.position;
 
+            if(laserHitParticlesPrefab != null) Instantiate(laserHitParticlesPrefab, laserEnd + new Vector3(0, 0, -1), Quaternion.identity, null);
+
             Rover rover = hit.transform.GetComponent<Rover>();
             if(rover != null)
             {
                 Debug.LogWarning("We hit a rover!");
+                if (laserHitParticlesPrefab != null) Instantiate(roverHitParticlesPrefab, laserEnd + new Vector3(0,0,-1), Quaternion.identity, null);
                 GameMode.Instance.WinnerId = PlayerId;
             }
         }
