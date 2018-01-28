@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+public class Winner : MonoBehaviour {
+    [SerializeField]
+    private Sprite[] sprite;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
