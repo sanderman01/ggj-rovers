@@ -152,6 +152,10 @@ MonoBehaviour:
   originO: {x: 0, y: 0}
   vehicleRenderer: {fileID: 212267430588420108}
   turretRenderer: {fileID: 212861508073776774}
+  audioEventReceiveCommand: {fileID: 114025411749051566, guid: 17cdd212e1d892141ba48072adea1961,
+    type: 2}
+  audioEventShootLaser: {fileID: 114025411749051566, guid: 40a6b1c9bd50f214c914a573147988df,
+    type: 2}
 --- !u!120 &120382718620462490
 LineRenderer:
   m_ObjectHideFlags: 1
