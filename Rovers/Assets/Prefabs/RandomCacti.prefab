@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4569910606906922}
   - component: {fileID: 114366357544487014}
   m_Layer: 0
-  m_Name: RandomObstacles
+  m_Name: RandomCacti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfb6d3ac7a13694e9ee96491f0bc47b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectCount: 40
-  randomRotate: 1
-  randomSprite: 1
-  prefab: {fileID: 114729549866630574, guid: e1447bcaf2a5d9e46acffaee35a55300, type: 2}
+  objectCount: 3
+  randomRotate: 0
+  randomSprite: 0
+  prefab: {fileID: 114252800827165338, guid: b23bf1bcc3a6d3741b62fad9735799a7, type: 2}
   area:
     serializedVersion: 2
     x: -15
