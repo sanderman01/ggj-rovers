@@ -12,7 +12,6 @@ public class Rover : MonoBehaviour
     public int ShootingDistance { get; set; }
     public float DefaultCommandDuration { get; set; }
     public bool IsExecutingCommand { get; private set; }
-    public Vector2 originO;
     private LineRenderer laserLine;
     private Rigidbody2D rigidBody;
 
@@ -38,17 +37,16 @@ public class Rover : MonoBehaviour
     }
     private void SetLaserColor(Material color)
     {
-        LineRenderer line = GetComponent<LineRenderer>();
-        line.material = color;
+        laserLine.material = color;
     }
 
     private void Awake()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         laserLine = GetComponent<LineRenderer>();
         MovementDistance = 1;
         DefaultCommandDuration = 5;
         ShootingDistance = 10;
-        rigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -152,15 +150,12 @@ public class Rover : MonoBehaviour
         IsExecutingCommand = true;
 
         RaycastHit2D[] hits;
-        Vector2 localOrigin = new Vector2(0, 1);
+        Vector2 localOrigin = new Vector2(0, 0.5f);
         Vector2 worldOrigin = transform.TransformPoint(localOrigin);
         Vector2 worldDirection = transform.TransformDirection(localOrigin);
 
         Vector3 laserEnd = worldOrigin + worldDirection * distance;
 
-        //Vector2 origin = new Vector2(transform.position.x, transform.position.y+1);
-        originO = worldOrigin;
-        //Debug.DrawRay(transform.position, -up * 2, Color.green);
         hits = Physics2D.RaycastAll(worldOrigin, worldDirection, distance);
         if (hits != null && hits.Length > 0)
         {
@@ -210,16 +205,5 @@ public class Rover : MonoBehaviour
     private IEnumerator RotateTurretRight()
     {
         yield return null;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if(originO != Vector2.zero)
-        {
-            Vector2 direction = transform.TransformDirection(new Vector2(0, 1));
-            Ray ray = new Ray(originO, (Vector3)direction);
-            Gizmos.DrawRay(ray);
-        }
-      
     }
 }
