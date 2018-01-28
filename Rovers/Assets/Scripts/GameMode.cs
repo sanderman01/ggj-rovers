@@ -33,6 +33,8 @@ public class GameMode : MonoBehaviour
     private Material[] laserColor;
 
     [SerializeField]
+    private AudioManager audioManagerPrefab;
+    [SerializeField]
     private AudioEvent audioEventSendCommand;
     [SerializeField]
     private AudioEvent audioEventReceiveCommand;
@@ -95,6 +97,12 @@ public class GameMode : MonoBehaviour
 
         TopDownCamera2D cam = Camera.main.GetComponent<TopDownCamera2D>();
         cam.Targets = cameraTargets;
+
+        if(AudioManager.Instance == null)
+        {
+            AudioManager mgr = Instantiate(audioManagerPrefab);
+            UnityEngine.Object.DontDestroyOnLoad(mgr.gameObject);
+        }
 
         lastCommand = Time.time;
     }

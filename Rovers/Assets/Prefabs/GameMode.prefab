@@ -73,6 +73,8 @@ MonoBehaviour:
   laserColor:
   - {fileID: 2100000, guid: 4a7646b05105ebb4287187b3bb054551, type: 2}
   - {fileID: 2100000, guid: cefb4acf743efd04dbab2048d2b79cc2, type: 2}
+  audioManagerPrefab: {fileID: 114872017313525648, guid: b8f03c991b15daf47964cf71517665cc,
+    type: 2}
   audioEventSendCommand: {fileID: 114025411749051566, guid: 4207db4fa5af2e644be4dddced99ecea,
     type: 2}
   audioEventReceiveCommand: {fileID: 114025411749051566, guid: 17cdd212e1d892141ba48072adea1961,
