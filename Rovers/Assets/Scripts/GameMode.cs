@@ -120,6 +120,8 @@ public class GameMode : MonoBehaviour
                 sc = winner.gameObject.AddComponent(typeof(Image)) as Image;
             }
             sc.sprite = winner.sprites[WinnerId.Value];
+            Vector3 v = new Vector3(0, 250f, 0);
+            winner.gameObject.GetComponent<RectTransform>().SetPositionAndRotation(v, Quaternion.identity);
         }
     }
 
