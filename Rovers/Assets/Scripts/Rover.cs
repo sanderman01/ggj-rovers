@@ -20,6 +20,7 @@ public class Rover : MonoBehaviour
     [SerializeField]
     private SpriteRenderer turretRenderer;
 
+
     [SerializeField]
     private AudioEvent audioEventReceiveCommand;
     [SerializeField]
@@ -176,7 +177,7 @@ public class Rover : MonoBehaviour
             if(rover != null)
             {
                 Debug.LogWarning("We hit a rover!");
-                // TODO
+                GameMode.Instance.WinnerId = PlayerId;
             }
         }
 

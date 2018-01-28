@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameMode : MonoBehaviour
 {
+    public int? WinnerId;
     [SerializeField]
     private float CommandInterval = 1;
     [SerializeField]
@@ -17,6 +19,8 @@ public class GameMode : MonoBehaviour
     private Transform[] spawnPositions;
     [SerializeField]
     private Rover[] roverPrefabs;
+    [SerializeField]
+    private Winner[] winscreensPrefabs;
     [SerializeField]
     private Sprite[] playerSprites;
     [SerializeField]
@@ -33,12 +37,18 @@ public class GameMode : MonoBehaviour
     [SerializeField]
     private AudioEvent audioEventReceiveCommand;
 
+    public static GameMode Instance { get; private set; }
+
     private List<Player> players;
     private List<Rover> rovers;
     private List<LinkedList<PlayerCommand>> playerCommandQueues;
 
     private float lastCommand;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         if (players == null)
@@ -95,6 +105,22 @@ public class GameMode : MonoBehaviour
 
         GetPlayerCommandsInput();
         ProcessCommands();
+        CheckWinner();
+    }
+
+    private void CheckWinner()
+    {
+        if(WinnerId.HasValue)
+        {
+            Winner winner = FindObjectOfType<Winner>();
+            winner.playerId = WinnerId.Value;
+            Image sc = winner.gameObject.GetComponent<Image>();
+            if(sc == null)
+            {
+                sc = winner.gameObject.AddComponent(typeof(Image)) as Image;
+            }
+            sc.sprite = winner.sprites[WinnerId.Value];
+        }
     }
 
     private void GetPlayerCommandsInput()
