@@ -159,6 +159,10 @@ MonoBehaviour:
     type: 2}
   audioEventShootLaser: {fileID: 114025411749051566, guid: 40a6b1c9bd50f214c914a573147988df,
     type: 2}
+  audioEventShootObject: {fileID: 114661678453442746, guid: 5f363f0b3fa2a6347a818dbdafb297d1,
+    type: 2}
+  audioEventShootEnemy: {fileID: 114896145140572348, guid: f83c1f6207fb2a84f900d32e849d11f3,
+    type: 2}
 --- !u!120 &120382718620462490
 LineRenderer:
   m_ObjectHideFlags: 1

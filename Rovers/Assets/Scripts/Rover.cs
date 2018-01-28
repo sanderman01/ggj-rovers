@@ -29,6 +29,10 @@ public class Rover : MonoBehaviour
     private AudioEvent audioEventReceiveCommand;
     [SerializeField]
     private AudioEvent audioEventShootLaser;
+    [SerializeField]
+    private AudioEvent audioEventShootObject;
+    [SerializeField]
+    private AudioEvent audioEventShootEnemy;
 
     private Queue<PlayerCommand> commandQueue = new Queue<PlayerCommand>();
     
@@ -177,14 +181,25 @@ public class Rover : MonoBehaviour
             RaycastHit2D hit = FindClosestHit(hits, transform.position);
             laserEnd = hit.transform.position;
 
-            if(laserHitParticlesPrefab != null) Instantiate(laserHitParticlesPrefab, laserEnd + new Vector3(0, 0, -1), Quaternion.identity, null);
+            if (laserHitParticlesPrefab != null)
+            {
+                Instantiate(laserHitParticlesPrefab, laserEnd + new Vector3(0, 0, -1), Quaternion.identity, null);
+            }
 
             Rover rover = hit.transform.GetComponent<Rover>();
             if(rover != null)
             {
                 Debug.LogWarning("We hit a rover!");
-                if (laserHitParticlesPrefab != null) Instantiate(roverHitParticlesPrefab, laserEnd + new Vector3(0,0,-1), Quaternion.identity, null);
+                if (laserHitParticlesPrefab != null)
+                {
+                    Instantiate(roverHitParticlesPrefab, laserEnd + new Vector3(0, 0, -1), Quaternion.identity, null);
+                }
                 GameMode.Instance.WinnerId = PlayerId;
+                AudioManager.PlayRandom(audioEventShootEnemy);
+            }
+            else
+            {
+                AudioManager.PlayRandom(audioEventShootObject);
             }
         }
 
