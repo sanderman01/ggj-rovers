@@ -8,6 +8,7 @@ Rovers/[Oo]bj/
 Rovers/[Bb]uild/
 Rovers/[Bb]uilds/
 Rovers/Assets/AssetStoreTools*
+[Bb]uilds/
 
 # Visual Studio 2015 cache directory
 Rovers/.vs/
