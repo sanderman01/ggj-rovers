@@ -151,7 +151,7 @@ public class GameMode : MonoBehaviour
 
     private void GetPlayerCommandsInput()
     {
-        if(GamepadInput.GamePad.GetButton(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any))
+        if(GamepadInput.GamePad.GetButton(GamepadInput.GamePad.Button.Start, GamepadInput.GamePad.Index.Any) || Input.GetKeyDown(KeyCode.Backspace))
         {
             Reset();
         }
